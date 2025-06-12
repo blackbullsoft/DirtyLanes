@@ -7,7 +7,7 @@ interface Status {
 const CustomStatusBar: FC<Status> = ({backColor}) => {
   return (
     <View>
-      <StatusBar barStyle="dark-content" backgroundColor={backColor} />
+      <StatusBar barStyle="default" backgroundColor={backColor} />
     </View>
   );
 };

@@ -37,6 +37,15 @@ export const images = {
   Line: require('../assests/imageFolder/Line.png'),
   Media: require('../assests/imageFolder/Media.png'),
   Upload: require('../assests/imageFolder/upload.png'),
-  Girls1: require('../assests/imageFolder/girl1 (1).png'),
-  Girls2: require('../assests/imageFolder/girl1 (2).png'),
+  Girls1: require('../assests/imageFolder/girl1(1).png'),
+  Girls2: require('../assests/imageFolder/girl1(2).png'),
+
+  Plus: require('../assests/imageFolder/plus.png'),
+  Mail: require('../assests/imageFolder/mail.png'),
+  Smile: require('../assests/imageFolder/smile.png'),
+  Zodiac: require('../assests/imageFolder/Zodiac.png'),
+  ProfileDetails: require('../assests/imageFolder/profiledetails.png'),
+  sadFace: require('../assests/imageFolder/sadface.png'),
+  smileFace: require('../assests/imageFolder/theSmile.png'),
+  TheMan: require('../assests/imageFolder/TheMan.png'),
 };

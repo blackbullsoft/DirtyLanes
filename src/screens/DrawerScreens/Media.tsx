@@ -23,6 +23,7 @@ import Photos from '../MediaScreen.tsx/Photos';
 import Album from '../MediaScreen.tsx/Album';
 import Audio from '../MediaScreen.tsx/Audio';
 import Video from '../MediaScreen.tsx/Video';
+import CustomStatusBar from '../../components/CustomStatusBar';
 
 const Media = () => {
   const horizontalPadding = 24 * 3.1; // left + right
@@ -67,6 +68,8 @@ const Media = () => {
   return (
     <SafeAreaView>
       <ScrollView>
+        <CustomStatusBar backColor={Colors.redDark} />
+
         <Header />
 
         <View>

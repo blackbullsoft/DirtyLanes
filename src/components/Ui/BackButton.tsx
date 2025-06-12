@@ -11,7 +11,7 @@ const BackButton = () => {
       onPress={() => {
         goBack();
       }}>
-      <Icon name="arrowleft" size={20} color={Colors.black} />
+      <Icon name="arrowleft" size={22} color={Colors.redDark} />
     </TouchableOpacity>
   );
 };
@@ -20,8 +20,8 @@ export default BackButton;
 
 const styles = StyleSheet.create({
   container: {
-    width: 32,
-    height: 32,
+    width: 41,
+    height: 41,
     borderWidth: 1,
     borderColor: Colors.borderGrey,
     justifyContent: 'center',

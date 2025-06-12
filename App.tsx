@@ -7,6 +7,7 @@ import {Colors} from './src/utils/Colors';
 import {NavigationContainer} from '@react-navigation/native';
 import BottomTabNavigator from './src/navigations/TabNavigator';
 import Filter from './src/screens/Dashboard/Filter';
+import {FilterProvider} from './src/context/FilterContext';
 
 const App = () => {
   return (

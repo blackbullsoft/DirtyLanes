@@ -29,6 +29,9 @@ import ForgotPassword from '../screens/features/auth/ForgotPassword';
 import Media from '../screens/DrawerScreens/Media';
 import SearchList from '../screens/Profile/SearchList.tsx';
 import EditProfile from '../screens/Profile/EditProfile';
+import {FilterProvider} from '../context/FilterContext.tsx';
+import ProfileDetails from '../screens/Profile/ProfileDetails.tsx';
+import MyMatches from '../screens/Profile/MyMatches.tsx';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,7 +65,7 @@ const BottomTabNavigator = () => (
         } else if (route.name === 'Profile') {
           iconName = focused ? 'person' : 'person';
         }
-        console.log('Icon name', iconName);
+        // console.log('Icon name', iconName);
         return (
           <TabIcon source={iconName} focused={focused} routeName={route.name} />
         );
@@ -187,7 +190,7 @@ const DrawerNavigator = () => (
         drawerLabel: 'Matches',
       }}
       name="Matches"
-      component={Wink}
+      component={MyMatches}
     />
 
     <Drawer.Screen
@@ -261,6 +264,7 @@ const Routes = () => (
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="SearchList" component={SearchList} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
     </Stack.Navigator>
   </NavigationContainer>
 );
@@ -270,7 +274,9 @@ export default function AppNavigator() {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{flex: 1}}>
-        <Routes />
+        <FilterProvider>
+          <Routes />
+        </FilterProvider>
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );

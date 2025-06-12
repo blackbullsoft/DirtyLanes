@@ -15,6 +15,8 @@ export const Colors = {
   backGrey: '#C7C7C7',
   textGrey: '#555555',
   inptBackGrey: '#F7F7F7',
+  iconGrey: '#444444',
+  dotGrey: '#D9D9D9',
 
   // =========== Red Color =========
   redLight: '#FFDEDE',

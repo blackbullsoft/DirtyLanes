@@ -10,109 +10,111 @@ import InsetShadow from 'react-native-inset-shadow';
 import DropDownComponent from '../../components/Ui/DropDownComponent';
 import {useKeyboard} from '../../utils/useKeyboard';
 import ButtonComponent from '../../components/Ui/ButtonComponent';
+import {useFilter} from '../../context/FilterContext';
 
-interface FilterProps {
-  visible?: boolean;
-  onClose?: () => void;
-}
-
-const Filter: FC<FilterProps> = ({visible = false, onClose = () => {}}) => {
-  const isKeyboardOpen = useKeyboard(); // ✅ Hook called at top level
+const Filter = () => {
+  const isKeyboardOpen = useKeyboard();
+  const {visible, hide} = useFilter();
 
   useEffect(() => {
     console.log('Keyboard is open:', isKeyboardOpen);
   }, [isKeyboardOpen]);
 
+  console.log('visible INside flter', visible);
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingBottom: 200,
-        paddingTop: 20,
-      }}
-      style={{
-        position: 'absolute',
-        backgroundColor: 'white',
-        zIndex: 100,
-
-        top: isKeyboardOpen ? '24%' : '16.8%',
-        height: '100%',
-        padding: 20,
-        width: '80%',
-        right: 0,
-        marginHorizontal: 20,
-        // elevation: 5,
-        // paddingBottom: 300,
-      }}>
-      <Text style={styles.heading}>New Members</Text>
-      <CustomInput placeholder="Women" heading="I Am" right={false} />
-      <CustomInput placeholder="Men" heading="Seeking A" right={false} />
-
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginTop: 25,
-        }}>
-        <CustomInput
-          placeholder="18"
-          heading="Age"
-          right={false}
-          containerStyle={{
-            width: '45%',
-            marginTop: 0,
+    <>
+      {visible && (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: 200,
+            paddingTop: 20,
           }}
-        />
+          style={{
+            position: 'absolute',
+            backgroundColor: 'white',
+            zIndex: 100,
 
-        <Text style={styles.toHeading}>To</Text>
+            top: 129,
+            height: '100%',
+            padding: 20,
+            width: '80%',
+            right: 0,
+            marginHorizontal: 20,
+            // elevation: 5,
+            // paddingBottom: 300,
+          }}>
+          <Text style={styles.heading}>New Members</Text>
+          <CustomInput placeholder="Women" heading="I Am" right={false} />
+          <CustomInput placeholder="Men" heading="Seeking A" right={false} />
 
-        <CustomInput
-          placeholder="30"
-          heading=""
-          right={false}
-          containerStyle={{
-            width: '45%',
-            marginTop: 0,
-          }}
-          showHeading={false}
-        />
-      </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginTop: 25,
+            }}>
+            <CustomInput
+              placeholder="18"
+              heading="Age"
+              right={false}
+              containerStyle={{
+                width: '45%',
+                marginTop: 0,
+              }}
+            />
 
-      <DropDownComponent placeHolder="Country" />
-      <DropDownComponent placeHolder="State" />
-      <DropDownComponent placeHolder="City" />
+            <Text style={styles.toHeading}>To</Text>
 
-      <CustomInput placeholder="ADJH" heading="UserName" right={false} />
-      <Text
-        style={[
-          styles.heading,
-          {
-            marginTop: 10,
-          },
-        ]}>
-        Additional Options
-      </Text>
+            <CustomInput
+              placeholder="30"
+              heading=""
+              right={false}
+              containerStyle={{
+                width: '45%',
+                marginTop: 0,
+              }}
+              showHeading={false}
+            />
+          </View>
 
-      <DropDownComponent placeHolder="Online Only" />
-      <DropDownComponent placeHolder="With Pictures Only" />
-      <CustomInput
-        placeholder="Give title"
-        heading="Save This Search"
-        right={false}
-        containerStyle={{
-          marginBottom: 20,
-        }}
-      />
+          <DropDownComponent placeHolder="Country" />
+          <DropDownComponent placeHolder="State" />
+          <DropDownComponent placeHolder="City" />
 
-      <ButtonComponent
-        name="Submit"
-        onPress={() => {
-          console.log('ds');
-        }}
-        theme={false}
-      />
-    </ScrollView>
+          <CustomInput placeholder="ADJH" heading="UserName" right={false} />
+          <Text
+            style={[
+              styles.heading,
+              {
+                marginTop: 10,
+              },
+            ]}>
+            Additional Options
+          </Text>
+
+          <DropDownComponent placeHolder="Online Only" />
+          <DropDownComponent placeHolder="With Pictures Only" />
+          <CustomInput
+            placeholder="Give title"
+            heading="Save This Search"
+            right={false}
+            containerStyle={{
+              marginBottom: 20,
+            }}
+          />
+
+          <ButtonComponent
+            name="Submit"
+            onPress={() => {
+              console.log('ds');
+            }}
+            theme={false}
+          />
+        </ScrollView>
+      )}
+    </>
   );
 };
 

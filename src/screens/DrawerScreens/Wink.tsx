@@ -2,10 +2,13 @@ import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Header from '../../components/Ui/Header';
 import {Colors} from '../../utils/Colors';
+import CustomStatusBar from '../../components/CustomStatusBar';
 
 const Wink = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <CustomStatusBar backColor={Colors.redDark} />
+
       <View>
         <ScrollView>
           <Header />

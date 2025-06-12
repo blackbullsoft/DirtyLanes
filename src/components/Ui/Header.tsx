@@ -14,14 +14,12 @@ import {images} from '../../assests/image';
 import {windowHeight} from '../../utils/Constant';
 import {navigate, openTheDrawer} from '../../utils/NavigationUtil';
 import Filter from '../../screens/Dashboard/Filter';
+import {useFilter} from '../../context/FilterContext';
 
-interface HeaderProps {
-  onFilterPress: () => void;
-  visible?: boolean;
-}
-const Header: FC<HeaderProps> = ({onFilterPress, visible}) => {
-  const [showFilter, setShowFilter] = React.useState(false);
+const Header = () => {
+  const {visible, toggle} = useFilter();
 
+  console.log('visible', visible);
   return (
     <View style={styles.container}>
       <View>
@@ -80,7 +78,7 @@ const Header: FC<HeaderProps> = ({onFilterPress, visible}) => {
                 navigate('SearchList');
               }}
             />
-            <TouchableOpacity onPress={onFilterPress}>
+            <TouchableOpacity onPress={toggle}>
               <Image source={images.Filter} style={styles.mic} />
             </TouchableOpacity>
 
