@@ -32,6 +32,14 @@ import EditProfile from '../screens/Profile/EditProfile';
 import {FilterProvider} from '../context/FilterContext.tsx';
 import ProfileDetails from '../screens/Profile/ProfileDetails.tsx';
 import MyMatches from '../screens/Profile/MyMatches.tsx';
+import MyGifts from '../screens/Profile/MyGifts.tsx';
+import MatchAlert from '../screens/Profile/MatchAlert.tsx';
+import MyWink from '../screens/Profile/MyWink.tsx';
+import MyFriends from '../screens/Profile/MyFriends.tsx';
+import ProfileStatus from '../screens/Profile/ProfileStatus.tsx';
+import Favorite from '../screens/Profile/Favorite.tsx';
+import Comment from '../screens/Profile/Comment.tsx';
+import TinderSwiper from '../components/Ui/TinderSwiper.tsx';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -83,6 +91,7 @@ const BottomTabNavigator = () => (
         // justifyContent: 'center',
         marginTop: windowHeight * 17,
       },
+      tabBarSafeAreaInset: {bottom: 'always'},
     })}>
     <Tab.Screen name={'Home'} component={Dashboard} />
     <Tab.Screen name="Heart" component={Heart} />
@@ -125,6 +134,33 @@ const DrawerNavigator = () => (
     }}
     drawerContent={props => <CustomDrawerContent {...props} />}>
     <Drawer.Screen
+      name="MainTabs"
+      component={BottomTabNavigator}
+      options={{
+        drawerItemStyle: {display: 'none'}, // 🔒 Hides from drawer UI
+      }}
+    />
+    <Drawer.Screen
+      name="ProfileStatus"
+      component={ProfileStatus}
+      options={{
+        drawerItemStyle: {display: 'none'}, // 🔒 Hides from drawer UI
+      }}
+    />
+    <Drawer.Screen
+      options={{
+        drawerIcon: ({color, size}) => (
+          <Image
+            source={images.HomeGrey} // replace with your icon path
+            style={{width: 24, height: 24}}
+          />
+        ),
+        drawerLabel: 'Home',
+      }}
+      name="Home"
+      component={BottomTabNavigator}
+    />
+    <Drawer.Screen
       options={{
         drawerIcon: ({color, size}) => (
           <Image
@@ -135,7 +171,7 @@ const DrawerNavigator = () => (
         drawerLabel: 'Wink',
       }}
       name="HomeTabs"
-      component={BottomTabNavigator}
+      component={MyWink}
     />
     <Drawer.Screen
       options={{
@@ -147,8 +183,8 @@ const DrawerNavigator = () => (
         ),
         drawerLabel: 'Friends',
       }}
-      name="Wink"
-      component={Wink}
+      name="Friends"
+      component={MyFriends}
     />
 
     <Drawer.Screen
@@ -162,7 +198,7 @@ const DrawerNavigator = () => (
         drawerLabel: 'Favorites',
       }}
       name="Favorites"
-      component={Wink}
+      component={Favorite}
     />
 
     <Drawer.Screen
@@ -176,7 +212,7 @@ const DrawerNavigator = () => (
         drawerLabel: 'Gifts',
       }}
       name="gift"
-      component={Wink}
+      component={MyGifts}
     />
 
     <Drawer.Screen
@@ -204,21 +240,21 @@ const DrawerNavigator = () => (
         drawerLabel: 'Comments',
       }}
       name="Comments"
-      component={Wink}
+      component={Comment}
     />
 
     <Drawer.Screen
       options={{
         drawerIcon: ({color, size}) => (
           <Image
-            source={images.News} // replace with your icon path
+            source={images.thebell} // replace with your icon path
             style={{width: 25, height: 22}}
           />
         ),
-        drawerLabel: 'News Feed',
+        drawerLabel: 'Match Alert',
       }}
-      name="NewsFeed"
-      component={Wink}
+      name="MatchAlert"
+      component={MatchAlert}
     />
 
     <Drawer.Screen
@@ -265,6 +301,8 @@ const Routes = () => (
       <Stack.Screen name="SearchList" component={SearchList} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+      <Stack.Screen name="ProfileStatus" component={ProfileStatus} />
+      <Stack.Screen name="TinderSwiper" component={TinderSwiper} />
     </Stack.Navigator>
   </NavigationContainer>
 );

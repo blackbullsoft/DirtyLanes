@@ -11,10 +11,12 @@ import DropDownComponent from '../../components/Ui/DropDownComponent';
 import {useKeyboard} from '../../utils/useKeyboard';
 import ButtonComponent from '../../components/Ui/ButtonComponent';
 import {useFilter} from '../../context/FilterContext';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const Filter = () => {
   const isKeyboardOpen = useKeyboard();
   const {visible, hide} = useFilter();
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     console.log('Keyboard is open:', isKeyboardOpen);
@@ -25,6 +27,8 @@ const Filter = () => {
     <>
       {visible && (
         <ScrollView
+          bounces={false}
+          overScrollMode="never"
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingBottom: 200,
@@ -35,7 +39,7 @@ const Filter = () => {
             backgroundColor: 'white',
             zIndex: 100,
 
-            top: 129,
+            top: insets.top + 125, // dynamically add 100px after safe top inset,
             height: '100%',
             padding: 20,
             width: '80%',

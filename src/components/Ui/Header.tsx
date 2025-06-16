@@ -15,8 +15,12 @@ import {windowHeight} from '../../utils/Constant';
 import {navigate, openTheDrawer} from '../../utils/NavigationUtil';
 import Filter from '../../screens/Dashboard/Filter';
 import {useFilter} from '../../context/FilterContext';
+import BackButton from './BackButton';
 
-const Header = () => {
+interface HeaderProps {
+  heading?: boolean;
+}
+const Header: FC<HeaderProps> = ({heading}) => {
   const {visible, toggle} = useFilter();
 
   console.log('visible', visible);
@@ -32,23 +36,48 @@ const Header = () => {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
+              marginTop: !heading ? 10 : 0,
             }}>
             {/* ======= Text Design ======= */}
-            <TouchableOpacity
-              onPress={() => openTheDrawer()}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Image source={images.Profile} style={styles.image} />
+            {heading && (
+              <TouchableOpacity
+                onPress={() => openTheDrawer()}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Image source={images.Profile} style={styles.image} />
+                <View
+                  style={{
+                    marginLeft: 7,
+                  }}>
+                  <Text style={styles.nameText}>Pooja Sharma</Text>
+                  <Text style={styles.welcomeTExt}>Welcome Back</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {!heading && (
               <View
                 style={{
-                  marginLeft: 7,
+                  // paddingHorizontal: 20,
+                  // paddingTop: 20,
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}>
-                <Text style={styles.nameText}>Pooja Sharma</Text>
-                <Text style={styles.welcomeTExt}>Welcome Back</Text>
+                <BackButton />
+                <Text
+                  style={{
+                    fontFamily: fontFamilies.PoppinsSemiBold,
+                    color: Colors.white,
+                    fontSize: RFValue(20),
+                    marginLeft: 15,
+                  }}>
+                  Search Result
+                </Text>
               </View>
-            </TouchableOpacity>
+            )}
+
             {/* ==== Bell Icons ======= */}
 
             <View style={styles.belloutisde}>

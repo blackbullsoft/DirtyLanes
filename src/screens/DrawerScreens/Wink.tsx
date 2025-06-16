@@ -10,8 +10,8 @@ const Wink = () => {
       <CustomStatusBar backColor={Colors.redDark} />
 
       <View>
-        <ScrollView>
-          <Header />
+        <ScrollView bounces={false} overScrollMode="never">
+          <Header heading={true} />
           {/* ========= Scrolling Through List ===== */}
         </ScrollView>
       </View>

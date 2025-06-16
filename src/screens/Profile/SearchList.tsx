@@ -2,7 +2,6 @@ import {
   Dimensions,
   FlatList,
   Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -21,6 +20,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import withGradientBackground from '../../components/Ui/withGradientBackground';
 import {navigate} from '../../utils/NavigationUtil';
 import CustomStatusBar from '../../components/CustomStatusBar';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const SearchListtsx = () => {
   const {visible, hide} = useFilter();
@@ -35,97 +35,99 @@ const SearchListtsx = () => {
 
       {visible ? <Filter /> : undefined}
 
-      <ScrollView>
-        <ScrollView>
-          <Header />
+      <ScrollView bounces={false} overScrollMode="never">
+        <Header heading={false} />
 
-          <View
-            style={{
-              // padding: 14,
-              alignItems: 'center',
-              marginTop: 10,
-            }}>
-            <FlatList
-              data={DATA}
-              keyExtractor={item => item.id}
-              numColumns={2}
-              renderItem={({item}) => (
-                <TouchableOpacity onPress={() => navigate('ProfileDetails')}>
-                  <View
+        <View
+          style={{
+            // padding: 14,
+            alignItems: 'center',
+            marginTop: 10,
+          }}>
+          <FlatList
+            data={DATA}
+            keyExtractor={item => item.id}
+            numColumns={2}
+            renderItem={({item}) => (
+              <TouchableOpacity onPress={() => navigate('ProfileDetails')}>
+                <View
+                  style={{
+                    borderWidth: 2,
+                    borderColor: Colors.border,
+                    borderRadius: 10,
+                    overflow: 'hidden',
+                    margin: 8,
+                    width: containerSize,
+                    borderBottomWidth: 0,
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => navigate('TinderSwiper')}
                     style={{
-                      borderWidth: 2,
-                      borderColor: Colors.border,
-                      borderRadius: 10,
-                      overflow: 'hidden',
-                      margin: 8,
-                      width: containerSize,
-                      borderBottomWidth: 0,
+                      paddingHorizontal: 7,
                     }}>
-                    <View
+                    <Image
+                      source={images.Girls1}
                       style={{
-                        paddingHorizontal: 7,
-                      }}>
-                      <Image
-                        source={images.Girls1}
-                        style={{
-                          // width: imageSize * 1.08,
-                          width: '100%',
-                          height: 124,
-                          // margin: 5,
+                        // width: imageSize * 1.08,
+                        width: '100%',
+                        height: 124,
+                        // margin: 5,
 
-                          padding: 0,
-                          borderRadius: 10,
-                        }}
-                        resizeMode="contain"
-                      />
+                        padding: 0,
+                        borderRadius: 10,
+                      }}
+                      resizeMode="contain"
+                    />
+                    <TouchableOpacity
+                      onPress={() => navigate('ProfileDetails')}>
                       <Text style={styles.userName}>Roselee60g</Text>
                       <Text style={styles.description}>
                         33 year old Woman from Tahoe City, California, United
                         States{' '}
                       </Text>
+                    </TouchableOpacity>
+                  </TouchableOpacity>
+
+                  <View style={styles.iconContainer}>
+                    <View style={styles.smallContainer}>
+                      <Image
+                        source={images.Plus}
+                        style={styles.iconImage}
+                        resizeMode="contain"
+                      />
                     </View>
 
-                    <View style={styles.iconContainer}>
-                      <View style={styles.smallContainer}>
-                        <Image
-                          source={images.Plus}
-                          style={styles.iconImage}
-                          resizeMode="contain"
-                        />
-                      </View>
+                    <View style={styles.smallContainer}>
+                      <Image
+                        source={images.heart}
+                        style={styles.iconImage}
+                        tintColor={'#9D9D9D'}
+                        resizeMode="contain"
+                      />
+                    </View>
 
-                      <View style={styles.smallContainer}>
-                        <Image
-                          source={images.heart}
-                          style={styles.iconImage}
-                          tintColor={'#9D9D9D'}
-                          resizeMode="contain"
-                        />
-                      </View>
+                    <View style={styles.smallContainer}>
+                      <Image
+                        source={images.Smile}
+                        style={styles.iconImage}
+                        resizeMode="contain"
+                      />
+                    </View>
 
-                      <View style={styles.smallContainer}>
-                        <Image
-                          source={images.Smile}
-                          style={styles.iconImage}
-                          resizeMode="contain"
-                        />
-                      </View>
-
-                      <View style={styles.smallContainer}>
-                        <Image
-                          source={images.Mail}
-                          style={styles.iconImage}
-                          resizeMode="contain"
-                        />
-                      </View>
+                    <View style={styles.smallContainer}>
+                      <Image
+                        source={images.Mail}
+                        style={styles.iconImage}
+                        resizeMode="contain"
+                      />
                     </View>
                   </View>
-                </TouchableOpacity>
-              )}
-              columnWrapperStyle={styles.row}
-            />
-          </View>
-        </ScrollView>
+                </View>
+              </TouchableOpacity>
+            )}
+            columnWrapperStyle={styles.row}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

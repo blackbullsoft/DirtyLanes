@@ -67,10 +67,10 @@ const Media = () => {
   console.log('showModal', showModal);
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView bounces={false} overScrollMode="never">
         <CustomStatusBar backColor={Colors.redDark} />
 
-        <Header />
+        <Header heading={true} />
 
         <View>
           <View style={styles.container}>

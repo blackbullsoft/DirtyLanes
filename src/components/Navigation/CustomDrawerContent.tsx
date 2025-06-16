@@ -94,9 +94,13 @@ const CustomDrawerContent = (props: any) => (
         </View>
         <VerticalLine />
 
-        <View style={styles.nonActiveButton}>
+        <TouchableOpacity
+          onPress={() => {
+            navigate('ProfileStatus');
+          }}
+          style={styles.nonActiveButton}>
           <Ionicons name={'eye-sharp'} size={22} color={Colors.darkGrey2} />
-        </View>
+        </TouchableOpacity>
         <VerticalLine />
 
         <View style={styles.nonActiveButton}>

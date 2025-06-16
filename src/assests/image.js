@@ -48,4 +48,11 @@ export const images = {
   sadFace: require('../assests/imageFolder/sadface.png'),
   smileFace: require('../assests/imageFolder/theSmile.png'),
   TheMan: require('../assests/imageFolder/TheMan.png'),
+  groupfriend: require('../assests/imageFolder/groupfriend.png'),
+  teddy: require('../assests/imageFolder/teddy.png'),
+  sentGift: require('../assests/imageFolder/sentGift.png'),
+  thebell: require('../assests/imageFolder/thebell.png'),
+  message: require('../assests/imageFolder/message.png'),
+  tinderGirl: require('../assests/imageFolder/tinderGirl.png'),
+  cross: require('../assests/imageFolder/cross.png'),
 };

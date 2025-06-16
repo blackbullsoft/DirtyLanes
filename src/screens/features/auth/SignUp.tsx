@@ -31,7 +31,9 @@ const SignUp = () => {
         contentContainerStyle={{
           marginTop: 10,
           paddingBottom: 30,
-        }}>
+        }}
+        bounces={false}
+        overScrollMode="never">
         <View style={styles.subContainer}>
           <View style={styles.backLogo}>
             <BackButton />

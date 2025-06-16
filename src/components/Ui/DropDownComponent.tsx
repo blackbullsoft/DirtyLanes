@@ -27,14 +27,22 @@ const data = [
 
 interface DrowpDownInterface {
   placeHolder: string;
+  containerStyle?: object;
+  dataList?: Array<{label: string; value: string}>;
+  search?: boolean;
 }
-const DropDownComponent: FC<DrowpDownInterface> = ({placeHolder}) => {
+const DropDownComponent: FC<DrowpDownInterface> = ({
+  placeHolder,
+  containerStyle,
+  dataList,
+  search,
+}) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <View style={[styles.container, containerStyle]}>
         {/* {renderLabel()} */}
         <InsetShadow
           left
@@ -50,8 +58,8 @@ const DropDownComponent: FC<DrowpDownInterface> = ({placeHolder}) => {
             inputSearchStyle={styles.inputSearchStyle}
             iconStyle={styles.iconStyle}
             containerStyle={styles.dropdownListContainer} // <- added this
-            data={data}
-            search
+            data={Array.isArray(dataList) ? dataList : data}
+            search={search}
             maxHeight={300}
             labelField="label"
             valueField="value"
@@ -121,6 +129,7 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: RFValue(14),
     marginLeft: 10,
+    color: Colors.tabGrey,
   },
   selectedTextStyle: {
     fontSize: RFValue(14),

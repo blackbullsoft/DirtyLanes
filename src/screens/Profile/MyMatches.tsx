@@ -1,7 +1,6 @@
 import {
   FlatList,
   Image,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -24,6 +23,8 @@ import {navigate} from '../../utils/NavigationUtil';
 import {Dimensions} from 'react-native';
 import {images} from '../../assests/image';
 import CustomStatusBar from '../../components/CustomStatusBar';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 const MyMatches = () => {
   const {visible, hide} = useFilter();
@@ -40,197 +41,239 @@ const MyMatches = () => {
     {label: 'Female', value: '3'},
   ];
   return (
-    <SafeAreaView style={{flex: 1, position: 'relative'}}>
+    <SafeAreaView
+      style={{flex: 1, position: 'relative', backgroundColor: Colors.redDark}}>
       {visible ? <Filter /> : undefined}
       <CustomStatusBar backColor={Colors.redDark} />
 
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <Header />
-        <View
-          style={{
-            padding: 20,
-          }}>
-          <Text style={styles.heading}>My Matches</Text>
+      <ScrollView bounces={false} overScrollMode="never">
+        <Header heading={true} />
+        <LinearGradient
+          colors={[
+            '#FFFFFF',
+            '#FFFFFF',
+            '#FFFFFF',
+            '#FFFFFF',
+            '#FFFFFF',
+            '#FFF8C9',
+          ]}
+          style={styles.gradient}>
+          <View>
+            <View
+              style={{
+                padding: 20,
+              }}>
+              <Text style={styles.heading}>My Matches</Text>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              //   justifyContent: 'space-between',
-              //   backgroundColor: 'black',
-            }}>
-            <View style={{zIndex: 999}}>
-              <Text style={styles.subHeading}>Gender: </Text>
-              <Dropdown
-                style={[styles.dropdown]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                //   containerStyle={styles.dropdownListContainer} // <- added this
-                data={data}
-                // search
-                maxHeight={300}
-                labelField="label"
-                valueField="value"
-                placeholder={!isFocus ? 'All' : '...'}
-                searchPlaceholder="Search..."
-                value={value}
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
-                onChange={item => {
-                  setValue(item.value);
-                  setIsFocus(false);
-                }}
-                renderRightIcon={() => <View style={styles.iconWrapper}></View>}
-              />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  // maxWidth: '70%',
+                  justifyContent: 'space-between',
+                  //   backgroundColor: 'black',
+                }}>
+                <View style={{zIndex: 999}}>
+                  <Text style={styles.subHeading}>Gender: </Text>
+                  <Dropdown
+                    style={[styles.dropdown]}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    //   containerStyle={styles.dropdownListContainer} // <- added this
+                    data={data}
+                    // search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    placeholder={!isFocus ? 'All' : '...'}
+                    searchPlaceholder="Search..."
+                    value={value}
+                    onFocus={() => setIsFocus(true)}
+                    onBlur={() => setIsFocus(false)}
+                    onChange={item => {
+                      setValue(item.value);
+                      setIsFocus(false);
+                    }}
+                    renderRightIcon={() => (
+                      <View style={styles.iconWrapper}></View>
+                    )}
+                  />
+                </View>
+
+                <View
+                  style={
+                    {
+                      // marginRight: 10,
+                    }
+                  }>
+                  <Text style={styles.subHeading}>Age :</Text>
+                  <TextInput
+                    keyboardType="number-pad"
+                    placeholder="18"
+                    style={styles.textInput}
+                    maxLength={2}
+                    placeholderTextColor={Colors.tabGrey}
+                  />
+                </View>
+
+                <View
+                  style={
+                    {
+                      // marginRight: 10,
+                    }
+                  }>
+                  <Text style={styles.subHeading}>To :</Text>
+                  <TextInput
+                    keyboardType="number-pad"
+                    placeholder="18"
+                    style={styles.textInput}
+                    maxLength={2}
+                    placeholderTextColor={Colors.tabGrey}
+                  />
+                </View>
+
+                <View
+                  style={{
+                    marginRight: 10,
+                  }}>
+                  <Text style={[styles.subHeading]}></Text>
+
+                  <UploadButton
+                    text="Filters"
+                    color="white"
+                    backgroundColor={Colors.black}
+                    containerStyle={{
+                      // marginTop: 10,
+                      // marginBottom: 15,
+                      borderRadius: 0,
+                      paddingVertical: 13,
+                      paddingHorizontal: 30,
+                      marginRight: 0,
+                      alignSelf: 'auto',
+                    }}
+                  />
+                </View>
+              </View>
             </View>
+
+            {/* ======== Horizontal Line */}
+            <View
+              style={{
+                borderColor: Colors.border,
+                borderWidth: 1,
+                width: '100%',
+              }}
+            />
 
             <View
               style={{
-                marginRight: 10,
+                padding: 20,
               }}>
-              <Text style={styles.subHeading}>Age :</Text>
-              <TextInput
-                keyboardType="number-pad"
-                placeholder="18"
-                style={styles.textInput}
-                maxLength={2}
-              />
-            </View>
+              <FlatList
+                data={DATA}
+                keyExtractor={item => item.id}
+                numColumns={2}
+                renderItem={({item}) => (
+                  <TouchableOpacity onPress={() => navigate('ProfileDetails')}>
+                    <View
+                      style={{
+                        borderWidth: 2,
+                        borderColor: Colors.border,
+                        borderRadius: 10,
+                        overflow: 'hidden',
+                        // margin: 8,
+                        marginRight: 8,
+                        width: containerSize,
+                        // width: 183,
+                        // borderBottomWidth: 0,
+                        marginTop: 8,
+                      }}>
+                      <View style={styles.iconContainer}>
+                        <View style={styles.smallContainer}>
+                          <Image
+                            source={images.groupfriend}
+                            style={styles.iconImage}
+                            resizeMode="contain"
+                            tintColor={Colors.white}
+                          />
+                        </View>
 
-            <View
-              style={{
-                marginRight: 10,
-              }}>
-              <Text style={styles.subHeading}>To :</Text>
-              <TextInput
-                keyboardType="number-pad"
-                placeholder="18"
-                style={styles.textInput}
-                maxLength={2}
-              />
-            </View>
-
-            <View
-              style={{
-                marginRight: 10,
-              }}>
-              <Text style={[styles.subHeading]}></Text>
-
-              <UploadButton
-                text="Filters"
-                color="white"
-                backgroundColor={Colors.black}
-                containerStyle={{
-                  // marginTop: 10,
-                  // marginBottom: 15,
-                  borderRadius: 0,
-                  paddingVertical: 13,
-                  paddingHorizontal: 30,
-                  marginRight: 0,
-                  alignSelf: 'auto',
-                }}
+                        <View style={styles.smallContainer}>
+                          <Image
+                            source={images.heart}
+                            style={styles.iconImage}
+                            tintColor={Colors.white}
+                            resizeMode="contain"
+                          />
+                        </View>
+                        <View style={styles.smallContainer}>
+                          <Image
+                            source={images.Mail}
+                            style={styles.iconImage}
+                            resizeMode="contain"
+                            tintColor={Colors.white}
+                          />
+                        </View>
+                        <View style={styles.smallContainer}>
+                          <Image
+                            source={images.Smile}
+                            style={styles.iconImage}
+                            resizeMode="contain"
+                            tintColor={Colors.white}
+                          />
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          paddingHorizontal: 7,
+                          alignItems: 'center',
+                        }}>
+                        <Image
+                          source={images.TheMan}
+                          style={{
+                            // width: imageSize * 1.08,
+                            width: 100,
+                            height: 100,
+                            // margin: 5,
+                            marginVertical: 12,
+                            padding: 0,
+                            borderRadius: 60,
+                          }}
+                          resizeMode="contain"
+                        />
+                        <Text style={styles.userName}>Roselee60g</Text>
+                        <Text style={styles.description}>
+                          33 year old Woman from Tahoe City,
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                )}
+                columnWrapperStyle={styles.row}
               />
             </View>
           </View>
-
-          <FlatList
-            data={DATA}
-            keyExtractor={item => item.id}
-            numColumns={2}
-            renderItem={({item}) => (
-              <TouchableOpacity onPress={() => navigate('ProfileDetails')}>
-                <View
-                  style={{
-                    borderWidth: 2,
-                    borderColor: Colors.border,
-                    borderRadius: 10,
-                    overflow: 'hidden',
-                    // margin: 8,
-                    marginRight: 8,
-                    width: containerSize,
-                    borderBottomWidth: 0,
-                  }}>
-                  <View style={styles.iconContainer}>
-                    <View style={styles.smallContainer}>
-                      <Image
-                        source={images.Plus}
-                        style={styles.iconImage}
-                        resizeMode="contain"
-                        tintColor={Colors.white}
-                      />
-                    </View>
-
-                    <View style={styles.smallContainer}>
-                      <Image
-                        source={images.heart}
-                        style={styles.iconImage}
-                        tintColor={Colors.white}
-                        resizeMode="contain"
-                      />
-                    </View>
-
-                    <View style={styles.smallContainer}>
-                      <Image
-                        source={images.Smile}
-                        style={styles.iconImage}
-                        resizeMode="contain"
-                        tintColor={Colors.white}
-                      />
-                    </View>
-
-                    <View style={styles.smallContainer}>
-                      <Image
-                        source={images.Mail}
-                        style={styles.iconImage}
-                        resizeMode="contain"
-                        tintColor={Colors.white}
-                      />
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      paddingHorizontal: 7,
-                      alignItems: 'center',
-                    }}>
-                    <Image
-                      source={images.TheMan}
-                      style={{
-                        // width: imageSize * 1.08,
-                        width: 124,
-                        height: 124,
-                        // margin: 5,
-
-                        padding: 0,
-                        borderRadius: 60,
-                      }}
-                      resizeMode="contain"
-                    />
-                    <Text style={styles.userName}>Roselee60g</Text>
-                    <Text style={styles.description}>
-                      33 year old Woman from Tahoe City, California, United
-                      States{' '}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            )}
-            columnWrapperStyle={styles.row}
-          />
-        </View>
+        </LinearGradient>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default withGradientBackground(MyMatches);
+export default MyMatches;
 
 const styles = StyleSheet.create({
   heading: {
     fontFamily: fontFamilies.PoppinsSemiBold,
     fontSize: RFValue(18),
     color: Colors.black,
+  },
+  gradient: {
+    // flex: 1,
+    // padding: 20,
+    // zIndex: 10,
+    // height: 10,
   },
   subHeading: {
     color: Colors.lightGrey,
@@ -244,11 +287,12 @@ const styles = StyleSheet.create({
     // borderRadius: 50,
     paddingHorizontal: 8,
     width: 100,
-    marginRight: 10,
+    // marginRight: 10,
   },
   placeholderStyle: {
     fontSize: RFValue(14),
     marginLeft: 10,
+    color: Colors.tabGrey,
   },
   selectedTextStyle: {
     fontSize: RFValue(14),
@@ -274,7 +318,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
     borderWidth: 1,
     // borderRadius: 50,
-    paddingHorizontal: 18,
+    paddingHorizontal: 16,
     fontSize: RFValue(14),
   },
   userName: {
@@ -286,28 +330,33 @@ const styles = StyleSheet.create({
     fontFamily: fontFamilies.PoppinsRegular,
     fontSize: RFValue(13),
     color: Colors.textColor,
+    textAlign: 'center',
   },
   smallContainer: {
     // backgroundColor: Colors.white,
-    padding: 7,
-    borderRadius: 2,
+    padding: 5,
+    borderRadius: 6,
   },
   iconContainer: {
     // flexDirection: 'row',
     position: 'absolute',
     // left: 0,
+    // bottom: 10,
+    top: 20,
     right: 0,
     zIndex: 1110,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     backgroundColor: Colors.backGrey,
-    paddingVertical: 10,
-    paddingHorizontal: 5,
+    // paddingVertical: 10,
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
+    // paddingHorizontal: 5,
   },
   iconImage: {
-    width: 14,
-    height: 14,
-    borderRadius: 10,
+    width: 13,
+    height: 13,
+    // borderRadius: 10,
   },
   row: {
     flexDirection: 'row',

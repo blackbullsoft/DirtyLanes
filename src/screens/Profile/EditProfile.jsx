@@ -27,7 +27,7 @@ const EditProfile = () => {
       style={{
         flex: 1,
       }}>
-      <ScrollView style={{}}>
+      <ScrollView bounces={false} overScrollMode="never">
         <View>
           <View style={styles.headerContainer}>
             <View

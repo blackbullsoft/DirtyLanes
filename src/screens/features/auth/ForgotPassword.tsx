@@ -7,7 +7,11 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {windowHeight, windowWidth} from '../../../utils/Constant';
+import {
+  responsive_factor,
+  windowHeight,
+  windowWidth,
+} from '../../../utils/Constant';
 import BackButton from '../../../components/Ui/BackButton';
 
 import {images} from '../../../assests/image';
@@ -32,7 +36,9 @@ const ForgotPassword = () => {
         contentContainerStyle={{
           marginTop: 10,
           paddingBottom: 30,
-        }}>
+        }}
+        bounces={false}
+        overScrollMode="never">
         <View style={styles.subContainer}>
           <View style={styles.backLogo}>
             <BackButton />
@@ -41,9 +47,14 @@ const ForgotPassword = () => {
             style={{
               marginBottom: 20,
               alignItems: 'center',
+              marginTop: responsive_factor * 30,
             }}>
             {/* <Image source={images.heartLogo} style={styles.image} /> */}
-            <Image source={images.ForgotPassword} style={styles.welcomeLogo} />
+            <Image
+              source={images.ForgotPassword}
+              style={styles.welcomeLogo}
+              resizeMode="contain"
+            />
           </View>
           <Text style={styles.ForgotText}>
             Please Enter Your Username Or Email Address.{'\n'} You Will Receive
@@ -82,7 +93,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   welcomeLogo: {
-    width: windowWidth * 760,
+    width: responsive_factor * 300,
     height: windowHeight * 55,
     marginTop: windowHeight * 30,
   },

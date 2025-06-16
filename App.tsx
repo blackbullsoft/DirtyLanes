@@ -8,13 +8,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import BottomTabNavigator from './src/navigations/TabNavigator';
 import Filter from './src/screens/Dashboard/Filter';
 import {FilterProvider} from './src/context/FilterContext';
+import AppNavigator from './src/navigations/Navigation';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <BottomTabNavigator />
+    <>
+      {/* <BottomTabNavigator /> */}
+      <AppNavigator />
       <Filter />
-    </NavigationContainer>
+    </>
   );
 };
 

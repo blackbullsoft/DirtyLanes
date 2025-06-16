@@ -1,7 +1,6 @@
 import {
   FlatList,
   Image,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,6 +18,9 @@ import {CustomInput} from '../../components/Ui/CustomInput';
 import UploadButton from '../../components/Ui/UploadButton';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {DATA, RateList} from '../../utils/Constant';
+import CustomStatusBar from '../../components/CustomStatusBar';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import TinderSwiper from '../../components/Ui/TinderSwiper';
 
 const ProfileDetails = () => {
   const [ratingKey, setRatingKey] = useState<number>();
@@ -27,7 +29,9 @@ const ProfileDetails = () => {
       style={{
         flex: 1,
       }}>
-      <ScrollView>
+      <CustomStatusBar backColor={Colors.redDark} />
+
+      <ScrollView bounces={false} overScrollMode="never">
         <View style={styles.headerContainer}>
           <View
             style={{
@@ -387,7 +391,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '68%',
+    width: '72%',
   },
   iconImage: {
     width: 18,

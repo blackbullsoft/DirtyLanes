@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {FC, useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Colors} from '../../../utils/Colors';
 import {images} from '../../../assests/image';
 import {CustomInput} from '../../../components/Ui/CustomInput';
@@ -11,11 +11,14 @@ import ButtonComponent from '../../../components/Ui/ButtonComponent';
 import {windowHeight} from '../../../utils/Constant';
 import {navigate} from '../../../utils/NavigationUtil';
 import withGradientBackground from '../../../components/Ui/withGradientBackground';
+import CustomStatusBar from '../../../components/CustomStatusBar';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Login = ({navigation}) => {
   const [check, setCheck] = useState(false);
   const [data, setData] = useState({});
   const [error, setError] = useState({});
+  const insets = useSafeAreaInsets();
 
   const handleInput = (name: string, value: string) => {
     setData(prev => ({
@@ -59,96 +62,112 @@ const Login = ({navigation}) => {
   const handleOnPress = () => {};
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.subContainer}>
-        <View
-          style={{
-            marginBottom: 20,
-            alignItems: 'center',
-          }}>
-          {/* <Image source={images.heartLogo} style={styles.image} /> */}
-          <Image source={images.TheHeartLogo} />
+      <CustomStatusBar backColor={Colors.white} />
 
-          <Image source={images.welcomeBack} style={styles.welcomeLogo} />
-        </View>
-        <View
-          style={{
-            marginHorizontal: 20,
-          }}>
-          <CustomInput
-            placeholder="example@gmail.com"
-            heading="UserName"
-            right={false}
-            onChangeText={e => {
-              handleInput('userName', e);
-            }}
-          />
-          {error?.userName && (
-            <View>
-              <Text style={styles.errorText}>{error?.userName}</Text>
-            </View>
-          )}
-
-          <CustomInput
-            placeholder="Enter your password"
-            heading="Password"
-            right={true}
-            passwordField={true}
-            onChangeText={e => {
-              handleInput('password', e);
-            }}
-          />
-          {error?.password && (
-            <View>
-              <Text style={styles.errorText}>{error?.password}</Text>
-            </View>
-          )}
-
+      <ScrollView bounces={false} overScrollMode="never">
+        <View style={styles.subContainer}>
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              marginBottom: 20,
               alignItems: 'center',
-              marginVertical: 15,
             }}>
-            <TouchableOpacity
+            {/* <Image source={images.heartLogo} style={styles.image} /> */}
+            <Image source={images.TheHeartLogo} />
+
+            <Image source={images.welcomeBack} style={styles.welcomeLogo} />
+          </View>
+          <View
+            style={{
+              marginHorizontal: 20,
+            }}>
+            <CustomInput
+              placeholder="example@gmail.com"
+              heading="UserName"
+              right={false}
+              onChangeText={e => {
+                handleInput('userName', e);
+              }}
+            />
+            {error?.userName && (
+              <View>
+                <Text style={styles.errorText}>{error?.userName}</Text>
+              </View>
+            )}
+
+            <CustomInput
+              placeholder="Enter your password"
+              heading="Password"
+              right={true}
+              passwordField={true}
+              onChangeText={e => {
+                handleInput('password', e);
+              }}
+            />
+            {error?.password && (
+              <View>
+                <Text style={styles.errorText}>{error?.password}</Text>
+              </View>
+            )}
+
+            <View
               style={{
                 flexDirection: 'row',
-                //   alignItems: 'center',
-              }}
-              onPress={() => {
-                setCheck(!check);
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginVertical: 15,
               }}>
-              {check ? (
-                <Icon name="checkbox" size={20} color={Colors.cadiumRed} />
-              ) : (
-                <Icon name="checkbox-outline" size={20} color={Colors.black} />
-              )}
-              <Text style={styles.Remember}>Remember me</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  //   alignItems: 'center',
+                }}
+                onPress={() => {
+                  setCheck(!check);
+                }}>
+                {check ? (
+                  <Icon name="checkbox" size={20} color={Colors.cadiumRed} />
+                ) : (
+                  <Icon
+                    name="checkbox-outline"
+                    size={20}
+                    color={Colors.black}
+                  />
+                )}
+                <Text style={styles.Remember}>Remember me</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => {
-                navigate('ForgotPassword');
-              }}>
-              <Text style={styles.ForgotText}>Forgot Password?</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigate('ForgotPassword');
+                }}>
+                <Text style={styles.ForgotText}>Forgot Password?</Text>
+              </TouchableOpacity>
+            </View>
+
+            <ButtonComponent
+              name="Login"
+              onPress={handleValidation}
+              theme={true}
+            />
           </View>
+        </View>
 
-          <ButtonComponent
-            name="Login"
-            onPress={handleValidation}
-            theme={true}
-          />
-        </View>
-        <View style={styles.createTextContainer}>
-          <Text style={styles.creatText}>Don't Have An Account? </Text>
-          <TouchableOpacity
-            onPress={() => {
-              navigate('SignUp');
-            }}>
-            <Text style={styles.boldCreateText}>Register</Text>
-          </TouchableOpacity>
-        </View>
+        <View></View>
+      </ScrollView>
+      <View
+        style={[
+          styles.createTextContainer,
+          {
+            // marginTop: insets.top + 100,
+          },
+        ]}>
+        <Text style={styles.creatText}>Don't Have An Account? </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigate('SignUp');
+          }}>
+          <Text style={styles.boldCreateText}>Register</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -159,12 +178,13 @@ export default withGradientBackground(Login);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // backgroundColor: 'Red',
   },
   subContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
     paddingHorizontal: 10,
+    marginTop: 70,
   },
   image: {
     width: 328,
@@ -196,12 +216,18 @@ const styles = StyleSheet.create({
   },
 
   createTextContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     flexDirection: 'row',
-    marginTop: 20,
+    // marginTop: insets.top + 125, // dynamically add 100px after safe top inset,
+
     position: 'absolute',
     bottom: 20,
+    right: 50,
+    left: 50,
+    // marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   creatText: {
     fontSize: RFValue(12),

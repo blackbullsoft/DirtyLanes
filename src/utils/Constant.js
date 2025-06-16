@@ -1,4 +1,4 @@
-import {Dimensions} from 'react-native';
+import {Dimensions, useWindowDimensions} from 'react-native';
 
 export const windowWidth = Dimensions.get('window').width * 0.001;
 export const windowHeight = Dimensions.get('window').height * 0.001;
@@ -60,6 +60,30 @@ export const RateList = [
   },
 ];
 
+export const TheList = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571ed72',
+    title: 'Third Item',
+  },
+];
+export const windowDimension = () => {
+  const {height, width, scale, fontScale} = useWindowDimensions();
+  return {
+    height,
+    width,
+    scale,
+    fontScale,
+  };
+};
+export const responsive_factor = Dimensions.get('window').width * 0.0025;
 export const dropDownData = [
   {label: 'Item 1', value: '1'},
   {label: 'Item 2', value: '2'},

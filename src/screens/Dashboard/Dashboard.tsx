@@ -20,8 +20,8 @@ const Dashboard = () => {
 
       {visible ? <Filter /> : undefined}
 
-      <ScrollView>
-        <Header />
+      <ScrollView bounces={false} overScrollMode="never">
+        <Header heading={true} />
 
         {/* Render your main content here */}
         <ScrollingList />
