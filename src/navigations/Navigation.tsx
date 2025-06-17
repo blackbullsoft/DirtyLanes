@@ -4,7 +4,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -18,7 +21,7 @@ import {navigationRef} from '../utils/NavigationUtil';
 import {Colors} from '../utils/Colors';
 import Heart from '../screens/Dashboard/Heart';
 import {images} from '../assests/image';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, Platform, StyleSheet, View} from 'react-native';
 import Chat from '../screens/Dashboard/Chat';
 import TabIcon from '../components/TabIcon';
 import {windowHeight, windowWidth} from '../utils/Constant';
@@ -46,60 +49,70 @@ const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 // Bottom tabs (Dashboard, Profile)
-const BottomTabNavigator = () => (
-  <Tab.Navigator
-    screenOptions={({route}) => ({
-      headerShown: false,
-      tabBarHideOnKeyboard: true,
-      tabBarIcon: ({focused, color, size}) => {
-        let iconName: string = 'home';
+const BottomTabNavigator = () => {
+  const insets = useSafeAreaInsets();
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        headerShown: false,
+        tabBarHideOnKeyboard: true,
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName: string = 'home';
 
-        if (route.name === 'Home') {
-          iconName = focused ? images.Home : images.HomeGrey;
-        } else if (route.name === 'Chat') {
-          iconName = focused ? images.ActiveChat : images.ChatInactive;
-        } else if (route.name === 'Heart') {
-          iconName = focused ? images.InActiveHeart : images.InActiveHeart;
-        } else if (route.name === 'Profile') {
-          iconName = focused ? images.InActiveProfile : images.InActiveProfile;
-        }
+          if (route.name === 'Home') {
+            iconName = focused ? images.Home : images.HomeGrey;
+          } else if (route.name === 'Chat') {
+            iconName = focused ? images.ActiveChat : images.ChatInactive;
+          } else if (route.name === 'Heart') {
+            iconName = focused ? images.InActiveHeart : images.InActiveHeart;
+          } else if (route.name === 'Profile') {
+            iconName = focused
+              ? images.InActiveProfile
+              : images.InActiveProfile;
+          }
 
-        if (route.name === 'Home') {
-          iconName = focused ? 'home' : 'home';
-        } else if (route.name === 'Chat') {
-          iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses';
-        } else if (route.name === 'Heart') {
-          iconName = focused ? 'heart' : 'heart';
-        } else if (route.name === 'Profile') {
-          iconName = focused ? 'person' : 'person';
-        }
-        // console.log('Icon name', iconName);
-        return (
-          <TabIcon source={iconName} focused={focused} routeName={route.name} />
-        );
-      },
-      tabBarStyle: {
-        backgroundColor: Colors.black,
-        height: windowHeight * 85,
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      tabBarShowLabel: false,
-      tabBarItemStyle: {
-        flex: 1,
-        maxWidth: windowWidth * 210,
-        // justifyContent: 'center',
-        marginTop: windowHeight * 17,
-      },
-      tabBarSafeAreaInset: {bottom: 'always'},
-    })}>
-    <Tab.Screen name={'Home'} component={Dashboard} />
-    <Tab.Screen name="Heart" component={Heart} />
-    <Tab.Screen name="Chat" component={Chat} />
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home';
+          } else if (route.name === 'Chat') {
+            iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses';
+          } else if (route.name === 'Heart') {
+            iconName = focused ? 'heart' : 'heart';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person';
+          }
+          // console.log('Icon name', iconName);
+          return (
+            <TabIcon
+              source={iconName}
+              focused={focused}
+              routeName={route.name}
+            />
+          );
+        },
+        tabBarStyle: {
+          backgroundColor: Colors.black,
+          height: 60 + insets.bottom,
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        tabBarShowLabel: false,
+        tabBarItemStyle: {
+          flex: 1,
+          maxWidth: windowWidth * 210,
+          // justifyContent: 'center',
+          paddingBottom: insets.bottom + 6,
+          marginTop: windowHeight * 17,
+        },
+        // tabBarSafeAreaInset: {bottom: 'always'},
+      })}>
+      <Tab.Screen name={'Home'} component={Dashboard} />
+      <Tab.Screen name="Heart" component={Favorite} />
+      <Tab.Screen name="Chat" component={Chat} />
 
-    <Tab.Screen name="Profile" component={Profile} />
-  </Tab.Navigator>
-);
+      <Tab.Screen name="Profile" component={ProfileDetails} />
+    </Tab.Navigator>
+  );
+};
 
 // Drawer wrapping Bottom Tabs
 const DrawerNavigator = () => (

@@ -32,7 +32,7 @@ const WelcomeScreen = () => {
   const styles = getStyles(width, height);
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container} edges={['bottom', 'top']}>
       <ScrollView bounces={false} overScrollMode="never">
         {/* <CustomStatusBar backColor="grey" /> */}
 

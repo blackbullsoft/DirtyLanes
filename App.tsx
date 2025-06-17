@@ -15,7 +15,7 @@ const App = () => {
     <>
       {/* <BottomTabNavigator /> */}
       <AppNavigator />
-      <Filter />
+      {/* <Filter /> */}
     </>
   );
 };

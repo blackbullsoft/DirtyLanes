@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {fontFamilies} from '../../../utils/font';
 import {RFValue} from 'react-native-responsive-fontsize';
 import ButtonComponent from '../../../components/Ui/ButtonComponent';
-import {windowHeight} from '../../../utils/Constant';
+import {responsive_factor, windowHeight} from '../../../utils/Constant';
 import {navigate} from '../../../utils/NavigationUtil';
 import withGradientBackground from '../../../components/Ui/withGradientBackground';
 import CustomStatusBar from '../../../components/CustomStatusBar';
@@ -61,7 +61,7 @@ const Login = ({navigation}) => {
   console.log('Data', data);
   const handleOnPress = () => {};
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['bottom']}>
       <CustomStatusBar backColor={Colors.white} />
 
       <ScrollView bounces={false} overScrollMode="never">
@@ -159,6 +159,7 @@ const Login = ({navigation}) => {
           styles.createTextContainer,
           {
             // marginTop: insets.top + 100,
+            bottom: insets.bottom,
           },
         ]}>
         <Text style={styles.creatText}>Don't Have An Account? </Text>
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     // marginTop: insets.top + 125, // dynamically add 100px after safe top inset,
 
     position: 'absolute',
-    bottom: 20,
+    // bottom: responsive_factor * 50,
     right: 50,
     left: 50,
     // marginBottom: 20,

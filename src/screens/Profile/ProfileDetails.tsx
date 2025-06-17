@@ -17,19 +17,24 @@ import withGradientBackground from '../../components/Ui/withGradientBackground';
 import {CustomInput} from '../../components/Ui/CustomInput';
 import UploadButton from '../../components/Ui/UploadButton';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {DATA, RateList} from '../../utils/Constant';
+import {DATA, RateList, responsive_factor} from '../../utils/Constant';
 import CustomStatusBar from '../../components/CustomStatusBar';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import TinderSwiper from '../../components/Ui/TinderSwiper';
 
 const ProfileDetails = () => {
   const [ratingKey, setRatingKey] = useState<number>();
+  const insets = useSafeAreaInsets();
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
-      }}>
-      <CustomStatusBar backColor={Colors.redDark} />
+        // backgroundColor: 'red',
+        paddingBottom: insets.bottom - responsive_factor * 120,
+      }}
+      edges={['bottom', 'top']}>
+      {/* <CustomStatusBar backColor={Colors.redDark} /> */}
 
       <ScrollView bounces={false} overScrollMode="never">
         <View style={styles.headerContainer}>
@@ -391,7 +396,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '72%',
+    width: '78%',
+    maxWidth: '90%',
   },
   iconImage: {
     width: 18,
